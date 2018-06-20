@@ -1,0 +1,11 @@
+<p>
+  Store example!
+</p>
+<div *ngIf="tutorials">
+    <div class="life-container" *ngFor="let tutorial of tutorials | async" >
+        
+      <a [href]="tutorial.url" target="_blank">{{ tutorial.name }} </a>
+      <span class="closeBtn" (click)="deleteItem(i);">X</span>
+    </div>
+</div>
+

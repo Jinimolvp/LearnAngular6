@@ -1,0 +1,84 @@
+<div class="signupContainer">
+<h1>Registration Form</h1>
+<br>
+<form name="registerForm">
+<div class="formContent">
+  <p>First Name</p>
+  <input class="inputField" name="firstName" type="text" [(ngModel)]="firstName"/>
+  <!-- <div class="form-control-feedback" *ngIf="registerForm.firstName.invalid && registerForm.firstName.dirty">Field is invalid</div> -->
+</div>
+<div class="formContent">
+  <p>Last Name</p>
+  <input class="inputField" name="lastName" type="text" [(ngModel)]="lastName"/>
+</div>
+<div class="formContent">
+  <p>Gender</p>
+  <div class="genderContainer">
+    <input type="radio" name="gender" value="male" [(ngModel)]="gender"> Male
+    <input type="radio" name="gender" value="female" [(ngModel)]="gender"> Female
+  </div>
+</div>
+<div class="formContent">
+  <p>Email</p>
+  <input class="inputField" name="email" type="text" [(ngModel)]="email"/>
+</div>
+<div class="formContent">
+  <p>Phone number</p>
+  <input class="inputField" name="phonenumber"  type="text" [(ngModel)]="phonenumber"/>
+</div>
+<div class="formContent">
+  <p>Address</p>
+  <textarea class="inputField" name="address" cols="50" rows="8" [(ngModel)]="address"></textarea>
+</div>
+<div class="formContent">
+  <p>Hobbies</p>
+   <div  class="hobbiesCheckboxContainer" *ngFor="let Hobby of Hobbies;let i = index"><input type="checkbox" id="Hobby.name" [value]="Hobby.name" name="hobbies" (click)="getHobbies(Hobby.name,Hobby.Selected);" ng-model="Hobby.Selected">{{Hobby.name}}</div>
+  <!-- <label class="checkbox_red dish-label-time" *ngFor="let Hobby of Hobbies">
+    <input type="checkbox" name="dishTime" [value]="Hobby.name"  ng-model="Hobby.name"
+      <label class="check-label" for="{{t.name}}" class="time-label">&nbsp;</label>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{Hobby.name}}
+  </label> -->
+</div>
+<div *ngIf='editMode=="false"' >
+  <input type="submit" class="btn registerButton" [value]="registerText" (click)="registerMe();"/>
+</div>
+<div *ngIf='editMode=="true"' >
+    <input type="submit" *ngIf='editMode=="true"' class="btn registerButton" [value]="editText" (click)="updateUser();"/>
+  </div>
+</form>
+<div class="row registeredUser">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-10">
+  <!-- <div *ngFor="let user of registerUserList">{{user.firstname}} | {{user.lastname}} | {{user.firstname}} | {{user.lastname}} | {{user.firstname}}</div> -->
+<table *ngIf='registerUserList.length>0'  class="UserList table table-striped">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email ID</th>
+      <th>Gender</th>
+      <th>Phone number</th>
+      <th>Address</th>
+      <!-- <th>Hobbies</th> -->
+      <th>Action 1</th>
+      <th>Action 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of registerUserList;let i = index">
+      <td>{{user.firstname}}</td>
+      <td>{{user.lastname}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.gender}}</td>
+      <td>{{user.phonenumber}}</td>
+      <td>{{user.address}}</td>
+      <!-- <td>{{user.hobbies}}</td> -->
+      <td><input type="submit" class="btn registerButton" [value]="editButton" (click)="editUserDetails(i);" /></td>
+      <td><input type="submit" class="btn registerButton" [value]="deleteButton" (click)="deleteUserDetails(i);"></td>
+
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>

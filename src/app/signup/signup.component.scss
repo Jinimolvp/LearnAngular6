@@ -1,0 +1,48 @@
+.signupContainer {
+    text-align: center;
+}
+.signupContainer p {
+    width: 35%;
+    display: inline-block;
+}
+.inputField {
+    width: 25%;
+    padding: 15px;
+    border: none;
+    height: auto;
+    border-radius: 35px;
+}
+.formContent {
+    padding-bottom: 1%;
+}
+.registerButton {
+    border: 0;
+    // width: 15%;
+    padding: 1em 3em;
+    background: #c42828;
+    color: #fff;
+    margin-bottom: 1em;
+    cursor: pointer;
+    border-radius: 16px;
+}
+.genderContainer {
+    width: 24%;
+    display: inline-block;
+    text-align: left;
+}
+.hobbiesCheckboxContainer {
+    display: inline-block;
+    width: 6%;
+}
+.UserList {
+    text-align: center;
+    width: 80%;
+    border: 1px solid #000;
+    padding: 1%;
+    background: #fff;
+    color: #000;
+}
+table th {
+border-bottom: 1px solid #000;
+padding-bottom: 1%;
+}
