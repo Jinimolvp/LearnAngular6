@@ -5,3 +5,27 @@
   
     <button (click)="addTutorial(name.value,url.value)">Add a Tutorial</button>
   </div>
+
+
+<br><br>
+<h3>REGISTRATION</h3>
+  <form name="registerForm" [formGroup]="registerForm" (ngSubmit)="registerMe()">
+    <div class="form-group">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="First name" formControlName="firstName"   [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/> 
+         <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+               <div *ngIf="f.firstName.errors.required">First Name is required</div>
+          </div>
+             
+    </div>
+      </div>
+     <div class="form-group">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Last name" formControlName="lastName" name="lastName"[ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+         <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                         <div *ngIf="f.lastName.errors.required">First Name is required</div>
+                    </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="registerMe();">Submit</button>
+    </form>

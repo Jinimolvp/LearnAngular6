@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers/test.reducers';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +17,7 @@ import { ContactusComponent } from './contactus/contactus.component';
 import { SignupComponent } from './signup/signup.component';
 import { DataService } from './data.service';
 import { TestcomComponent } from './testcom/testcom.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +28,14 @@ import { TestcomComponent } from './testcom/testcom.component';
     ContactusComponent,
     SignupComponent,
     TestcomComponent,
+    GalleryComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
      StoreModule.forRoot({
        tutorial: reducer
      })

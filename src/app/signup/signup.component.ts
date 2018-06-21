@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import _ from 'lodash';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -6,14 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  registerForm: FormGroup;
+  submitted = false;
   registerText: string = 'Submit';
   editText: string = 'Update';
   editButton: string = 'Edit';
   deleteButton: string = 'Delete';
-  Hobbies = [{'name': 'Cricket', 'Selected': false},
+  countries = ['India', 'Pakisthan', 'Srilanka', 'UAE', 'Brazil', 'Canada', 'China'];
+  Hobbies = [{'name': 'Cricket', 'Selected': true},
   {'name': 'Football', 'Selected': true},
-  {'name': 'Gardening', 'Selected': false},
-  {'name': 'Reading', 'Selected': false}];
+  {'name': 'Gardening', 'Selected': true},
+  {'name': 'Reading', 'Selected': true}];
   firstName: string;
   lastName: string;
   email: string;
@@ -21,29 +26,60 @@ export class SignupComponent implements OnInit {
   address: string;
   gender: string = 'female';
   registerUserList: any;
+  selectedHobbyList: any;
   editMode: string = 'false';
   editIndex: number;
+  selectedName: string = 'India';
+  hobbyIndex: number;
+  edithobbyIndex: number;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+
+    });
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+  });
     this.registerUserList = [];
+    // this.edithobbyIndex = -1;
+    this.selectedHobbyList = ['Cricket', 'Football', 'Gardening', 'Reading'];
+
   }
-  // getHobbies = (hobbyname, checkedProp) => {
-  //   console.log(  # +'hobbyname'.checked);
-  //   if (checkedProp === true) {
-  //     console.log('ticked', hobbyname);
-  //   } else {
-  //     console.log('Untick', hobbyname);
-  //   }
-  // }
+  // convenience getter for easy access to form fields
+      get f() { return this.registerForm.controls; }
+  selectHobby = (hobby, selected, index) => {
+    console.log(hobby);
+    console.log(selected);
+    if ( selected === true) {
+      this.selectedHobbyList.push(hobby);
+      this.selectedHobbyList = _.uniq(this.selectedHobbyList);
+    } else {
+       this.hobbyIndex = _.findIndex(this.selectedHobbyList, function(o) { return o ===  hobby; });
+       if ( this.hobbyIndex >= 0) {
+        this.selectedHobbyList.splice(this.hobbyIndex, 1);
+       }
+
+      // this.selectedHobbyList.splice(index, 1);
+    }
+    console.log(this.selectedHobbyList);
+   // console.log( $( 'input[@id=' + hobby + ']:checked').length );
+  }
   registerMe = () => {
+      this.submitted = true;
+// if (this.registerForm.valid) {
     this.registerUserList.push({'firstname': this.firstName,
                                 'lastname': this.lastName,
                                 'email': this.email,
                                 'gender' : this.gender,
                                 'phonenumber': this.phonenumber,
-                                'address': this.address
+                                'country' : this.selectedName,
+                                'address': this.address,
+                                'hobbies': this.selectedHobbyList
                               });
     this.firstName = '';
     this.lastName = '';
@@ -51,25 +87,41 @@ export class SignupComponent implements OnInit {
     this.gender = 'female';
     this.phonenumber = '';
     this.address = '';
-    console.log( this.registerUserList);
+    this.selectedName = 'India';
+    this.Hobbies = [{'name': 'Cricket', 'Selected': true},
+                    {'name': 'Football', 'Selected': true},
+                    {'name': 'Gardening', 'Selected': true},
+                    {'name': 'Reading', 'Selected': true}];
+    // }
   }
   editUserDetails = (i) => {
+    this.Hobbies.map( (value, index) => {
+      console.log( this.selectedHobbyList[index]);
+      console.log( this.selectedHobbyList , 'ffff' , value.name , 'mmm' , index );
+      this.edithobbyIndex = _.findIndex(this.selectedHobbyList, function(o) { return o ===  value.name; });
+      if ( this.edithobbyIndex < 0) {
+        this.Hobbies[index].Selected = false;
+      }
+    });
+    console.log( this.Hobbies);
     this.firstName = this.registerUserList[i]['firstname'];
     this.lastName = this.registerUserList[i]['lastname'];
     this.email = this.registerUserList[i]['email'];
     this.gender = this.registerUserList[i]['gender'];
     this.phonenumber = this.registerUserList[i]['phonenumber'];
     this.address = this.registerUserList[i]['address'];
+    this.selectedName = this.registerUserList[i]['country'];
     this.editMode = 'true';
     this.editIndex = i;
-
-
+    this.Hobbies = this.Hobbies;
   }
   updateUser = () => {
     this.registerUserList[this.editIndex]['firstname'] = this.firstName ;
     this.registerUserList[this.editIndex]['lastName'] = this.lastName ;
     this.registerUserList[this.editIndex]['email'] = this.email ;
+    this.registerUserList[this.editIndex]['gender'] = this.gender ;
     this.registerUserList[this.editIndex]['phonenumber'] = this.phonenumber ;
+    this.registerUserList[this.editIndex]['country'] = this.selectedName ;
     this.registerUserList[this.editIndex]['address'] = this.address ;
     // To clear text fields
     this.firstName = '';
@@ -77,6 +129,7 @@ export class SignupComponent implements OnInit {
     this.email = '';
     this.gender = 'female';
     this.phonenumber = '';
+    this.selectedName = 'India';
     this.address = '';
 
   }

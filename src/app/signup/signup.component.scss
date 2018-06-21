@@ -1,48 +1,77 @@
 .signupContainer {
     text-align: center;
+    margin-top:5%;
 }
-.signupContainer p {
-    width: 35%;
-    display: inline-block;
+// .signupContainer p {
+//     width: 35%;
+//     display: inline-block;
+// }
+// .inputField {
+//     width: 25%;
+//     padding: 15px;
+//     border: none;
+//     height: auto;
+//     border-radius: 35px;
+// }
+// .formContent {
+//     padding-bottom: 1%;
+// }
+// .registerButton {
+//     border: 0;
+//     // width: 15%;
+//     padding: 1em 3em;
+//     background: #c42828;
+//     color: #fff;
+//     margin-bottom: 1em;
+//     cursor: pointer;
+//     border-radius: 16px;
+// }
+// .genderContainer {
+//     width: 24%;
+//     display: inline-block;
+//     text-align: left;
+// }
+// .hobbiesCheckboxContainer {
+//     display: inline-block;
+//     width: 6%;
+// }
+// .UserList {
+//     text-align: center;
+//     width: 80%;
+//     border: 1px solid #000;
+//     padding: 1%;
+//     background: #fff;
+//     color: #000;
+// }
+// table th {
+// border-bottom: 1px solid #000;
+// padding-bottom: 1%;
+// }
+.signUpContent {
+    //width:80%;
+    text-align: center;
 }
-.inputField {
-    width: 25%;
-    padding: 15px;
-    border: none;
-    height: auto;
-    border-radius: 35px;
+.countryContainer {
+    padding:1.5%;
 }
-.formContent {
-    padding-bottom: 1%;
-}
-.registerButton {
-    border: 0;
-    // width: 15%;
-    padding: 1em 3em;
-    background: #c42828;
-    color: #fff;
-    margin-bottom: 1em;
-    cursor: pointer;
-    border-radius: 16px;
-}
-.genderContainer {
-    width: 24%;
-    display: inline-block;
+.countryLabel{
     text-align: left;
 }
-.hobbiesCheckboxContainer {
-    display: inline-block;
-    width: 6%;
+.countrySelectContainer {
+    width:100%;
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    /* border: 1px solid #ced4da; */
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-.UserList {
-    text-align: center;
-    width: 80%;
-    border: 1px solid #000;
-    padding: 1%;
-    background: #fff;
-    color: #000;
-}
-table th {
-border-bottom: 1px solid #000;
-padding-bottom: 1%;
+.checkBoxDisplay {
+    width:130px;
+    text-align: left;
 }
