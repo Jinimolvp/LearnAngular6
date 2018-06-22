@@ -126,7 +126,7 @@
                         <td>{{user.country}}</td>
                         <td>{{user.address}}</td>
                         <td>
-                            <span *ngFor="let hobb of selectedHobbyList">{{hobb}},</span>
+                            <span *ngFor="let hobb of user.hobbies">{{hobb}},</span>
                         </td>
                         <td>
                             <input type="submit" class="btn registerButton" [value]="editButton" (click)="editUserDetails(i);" />

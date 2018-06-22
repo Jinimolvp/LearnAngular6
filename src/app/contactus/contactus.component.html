@@ -1,6 +1,20 @@
-<p>
-  contactus works!
-</p>
-<p class="life-container" *ngFor="let fruit of fruitsArray;let i = index">
-  {{fruit}}
- </p>
+<div class="container careerContainer">
+  <div class="">
+    <h3>
+      Service Example !
+    </h3>
+    <p>
+      <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Added fruits in the list</a>
+    </p>
+    <div class="row">
+      <div class="col">
+        <div class="collapse multi-collapse" id="multiCollapseExample1">
+          <div class="card card-body fruitCard" *ngFor="let fruit of fruitsArray;let i = index">
+              {{fruit}}
+          </div>
+        </div>
+      </div>
+      
+    </div>
+</div>
+</div>

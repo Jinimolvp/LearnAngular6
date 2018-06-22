@@ -12,7 +12,7 @@ export class ContactusComponent implements OnInit {
   constructor(private _data:DataService) { }
 
   ngOnInit() {
-    this._data.fruit.subscribe(res => this.fruitsArray=res);
+    this._data.fruit.subscribe(res => this.fruitsArray = res);
   }
 
 }

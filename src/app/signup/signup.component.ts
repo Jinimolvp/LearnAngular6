@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import _ from 'lodash';
+import { DataService } from '../data.service';
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -37,7 +38,7 @@ export class SignupComponent implements OnInit {
   hobbyIndex: number;
   edithobbyIndex: number;
   checkbox = true;
-  constructor() { }
+  constructor(private _data: DataService) { }
 
 
   ngOnInit() {
@@ -90,6 +91,11 @@ export class SignupComponent implements OnInit {
         'address': this.address,
         'hobbies': this.selectedHobbyList
       });
+      this._data.registerUser(this.registerUserList).subscribe(results => {
+        console.log(results);
+        if (results) {
+        }
+      });
       ngForm.resetForm();
       // ngForm.reset();
       // this.firstName = '';
@@ -139,7 +145,7 @@ export class SignupComponent implements OnInit {
     this.registerUserList[this.editIndex]['country'] = this.selectedName;
     this.registerUserList[this.editIndex]['address'] = this.address;
 
-    // regform.resetForm();
+     regform.resetForm();
     // To clear text fields
     // this.firstName = '';
     // this.lastName = '';
@@ -148,6 +154,7 @@ export class SignupComponent implements OnInit {
     // this.phonenumber = '';
     this.selectedName = 'India';
     // this.address = '';
+    this.editMode = 'false';
 
   }
   deleteUserDetails = (i) => {
@@ -156,4 +163,5 @@ export class SignupComponent implements OnInit {
   checkboxStatus(data) {
     return data.Selected;
   }
+  
 }
