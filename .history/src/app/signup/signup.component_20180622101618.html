@@ -1,0 +1,129 @@
+<div class="container signupContainer">
+<h1>Registration Form</h1>
+<br>
+<div class="signUpContent">
+<form #f="ngForm"  name="form" novalidate>
+    <div class="form-group">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="First name" name="firstNameVal"  [(ngModel)]="firstName"  #firstNameVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstNameVal.invalid }" required minlength="6"/>
+        <div *ngIf="f.submitted && firstNameVal.invalid" class="invalid-feedback">
+            <div *ngIf="firstNameVal.errors.required">First Name is required</div>
+            <div *ngIf="firstNameVal.errors.minlength">FirstName must be at least 6 characters</div>
+        </div>
+        <!-- <span class="help-block" *ngIf="firstNameVal.errors?.required && firstNameVal.touched">
+            User Name is required
+          </span> -->
+    </div>
+      </div>
+      <div class="form-group">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Last name"  name="lastNameVal" [(ngModel)]="lastName" #lastNameVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastNameVal.invalid }" required/>
+        <div *ngIf="f.submitted && lastNameVal.invalid" class="invalid-feedback">
+            <div *ngIf="lastNameVal.errors.required">Last Name is required</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-group">
+        <div class="col">
+            <input type="radio" name="gender" value="male" [(ngModel)]="gender"  [ngModelOptions]="{standalone: true}"> Male
+            <input type="radio" name="gender" value="female" [(ngModel)]="gender"  [ngModelOptions]="{standalone: true}"> Female
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="email"  name="emailVal" [(ngModel)]="email" #emailVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && emailVal.invalid }" required email/>
+            <div *ngIf="f.submitted && emailVal.invalid" class="invalid-feedback">
+                <div *ngIf="emailVal.errors.required">Email is required</div>
+                <div *ngIf="emailVal.errors.email">Email must be a valid email address</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="phonenumber"  name="phonenumberVal" [(ngModel)]="phonenumber" #phonenumberVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phonenumberVal.invalid }" required />
+            <div *ngIf="f.submitted && phonenumberVal.invalid" class="invalid-feedback">
+                <div *ngIf="phonenumberVal.errors.required">Phone number is required</div>
+                <!-- <div *ngIf="phonenumberVal.errors.minlength">Min length needed</div> -->
+                <!-- <div *ngIf="phonenumberVal.errors.pattern">Invalid phone number</div> -->
+            </div>
+        </div>
+    </div>
+    <div class="row countryContainer">
+      <div class="col countryLabel"><label>Select your country</label></div>
+      <div class="col"><select class="countrySelectContainer" name="selectedNameVal" [(ngModel)]="selectedName" [ngModelOptions]="{standalone: true}" #selectedNameVal="ngModel" required> 
+            <option *ngFor="let x of  countries" [value]="x">{{x}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+        <div class="col">
+            <textarea class="form-control form-rounded" name="addressVal" cols="50" rows="4" [(ngModel)]="address" #addressVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && addressVal.invalid }" required></textarea>
+            <div *ngIf="f.submitted && addressVal.invalid" class="invalid-feedback">
+                <div *ngIf="addressVal.errors.required">Addrsess is required</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row countryContainer">
+      <div class="col countryLabel">
+          <label>Select your hobbies</label>
+      </div>
+      <div class="col">
+          <div class="">
+              <label class="form-check-label checkBoxDisplay" *ngFor="let Hobby of Hobbies">
+                <input type="checkbox" class="form-check-input" name="hobby" id="Hobby.name" [checked]="Hobby.Selected" [(ngModel)]="Hobby.Selected" (change)="selectHobby(Hobby.name,Hobby.Selected,index);" id="checkboxSuccess" value="Hobby.Selected" > 
+               {{Hobby.name}}
+              </label>
+            </div>
+            
+      </div>
+
+    </div>
+    <div *ngIf='editMode=="false"' >
+      <button class="btn btn-primary" (click)="registerMe(f);">{{registerText}}</button>
+    </div>
+    <div *ngIf='editMode=="true"' >
+        <button class="btn btn-primary" (click)="updateUser(f);">{{editText}}</button>
+      </div>
+  </form>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+      <table class="table table-dark" *ngIf='registerUserList.length>0'>
+          <thead>
+            <tr>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone number</th>
+              <th scope="col">Country</th>
+              <th scope="col">Address</th>
+              <th scope="col">Hobbies</th>
+              <th scope="col">Action 1</th>
+              <th scope="col">Action 2</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of registerUserList;let i = index">
+                <td>{{user.firstname}}</td>
+                <td>{{user.lastname}}</td>
+                <td>{{user.gender}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.phonenumber}}</td>
+                <td>{{user.country}}</td>
+                <td>{{user.address}}</td>
+                <td><span *ngFor="let hobb of selectedHobbyList">{{hobb}},</span></td>
+                <td><input type="submit" class="btn registerButton" [value]="editButton" (click)="editUserDetails(i);" /></td>
+                <td><input type="submit" class="btn registerButton" [value]="deleteButton" (click)="deleteUserDetails(i);"></td>
+            </tr>
+
+          </tbody>
+        </table>
+
+</div>
+</div>
+</div>

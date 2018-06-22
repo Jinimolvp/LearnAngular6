@@ -81,7 +81,7 @@
                 <div class="col">
                     <div class="">
                         <label class="form-check-label checkBoxDisplay" *ngFor="let Hobby of Hobbies">
-                            <input type="checkbox" class="form-check-input" name="hobby" id="Hobby.name" [checked]="checkboxStatus(Hobby)" (change)="selectHobby(Hobby.name,$event,index);"
+                            <input type="checkbox" class="form-check-input" name="hobby" id="Hobby.name" [checked]="checkboxStatus()" (change)="selectHobby(Hobby.name,Hobby.Selected,index);"
                                 id="checkboxSuccess"> {{Hobby.name}}
                         </label>
                     </div>

@@ -58,8 +58,8 @@ export class SignupComponent implements OnInit {
   }
   // convenience getter for easy access to form fields
   // get f() { return this.registerForm.controls; }
-  selectHobby = (hobby, event, index) => {
-    if (event.target.checked === true) {
+  selectHobby = (hobby, selected, index) => {
+    if (selected === true) {
       this.selectedHobbyList.push(hobby);
       this.selectedHobbyList = _.uniq(this.selectedHobbyList);
     } else {
@@ -70,7 +70,7 @@ export class SignupComponent implements OnInit {
 
       // this.selectedHobbyList.splice(index, 1);
     }
-    console.log(this.selectedHobbyList);
+    // console.log(this.selectedHobbyList);
     // console.log( $( 'input[@id=' + hobby + ']:checked').length );
   }
   registerMe = (ngForm: any) => {
@@ -106,14 +106,14 @@ export class SignupComponent implements OnInit {
     }
   }
   editUserDetails = (i) => {
-    this.Hobbies.map((value, index) => {
-      // console.log(this.selectedHobbyList[index]);
-      // console.log(this.selectedHobbyList, 'ffff', value.name, 'mmm', index);
-      this.edithobbyIndex = _.findIndex(this.registerUserList[i]['hobbies'], function (o) { return o === value.name; });
-      if (this.edithobbyIndex < 0) {
-        this.Hobbies[index].Selected = false;
-      }
-    });
+    // this.Hobbies.map((value, index) => {
+    //   // console.log(this.selectedHobbyList[index]);
+    //   // console.log(this.selectedHobbyList, 'ffff', value.name, 'mmm', index);
+    //   this.edithobbyIndex = _.findIndex(this.registerUserList[i]['hobbies'], function (o) { return o === value.name; });
+    //   if (this.edithobbyIndex < 0) {
+    //     this.Hobbies[index].Selected = false;
+    //   }
+    // });
     console.log('*********************************');
     console.log(this.registerUserList[i]['hobbies']);
     console.log(this.registerUserList[i]);
@@ -153,7 +153,12 @@ export class SignupComponent implements OnInit {
   deleteUserDetails = (i) => {
     this.registerUserList.splice(i, 1);
   }
-  checkboxStatus(data) {
+  checkboxStatus(data, Hobbies) {
+
+    console.log('-------------------------');
+    console.log(data);
+    console.log(Hobbies);
+    console.log('-------------------------');
     return data.Selected;
   }
 }

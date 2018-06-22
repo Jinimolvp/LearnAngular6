@@ -59,7 +59,8 @@
                     <label>Select your country</label>
                 </div>
                 <div class="col">
-                    <select class="countrySelectContainer" name="selectedNameVal" [(ngModel)]="selectedName" [ngModelOptions]="{standalone: true}">
+                    <select class="countrySelectContainer" name="selectedNameVal" [(ngModel)]="selectedName" [ngModelOptions]="{standalone: true}"
+                        #selectedNameVal="ngModel" required>
                         <option *ngFor="let x of  countries" [value]="x">{{x}}</option>
                     </select>
                 </div>
@@ -81,8 +82,8 @@
                 <div class="col">
                     <div class="">
                         <label class="form-check-label checkBoxDisplay" *ngFor="let Hobby of Hobbies">
-                            <input type="checkbox" class="form-check-input" name="hobby" id="Hobby.name" [checked]="checkboxStatus(Hobby)" (change)="selectHobby(Hobby.name,$event,index);"
-                                id="checkboxSuccess"> {{Hobby.name}}
+                            <input type="checkbox" class="form-check-input" name="hobby" id="Hobby.name" [checked]="Hobby.Selected" [(ngModel)]="Hobby.Selected"
+                                (change)="selectHobby(Hobby.name,Hobby.Selected,index);" id="checkboxSuccess" value="Hobby.Selected"> {{Hobby.name}}
                         </label>
                     </div>
 

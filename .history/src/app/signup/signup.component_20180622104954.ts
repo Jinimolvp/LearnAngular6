@@ -153,7 +153,12 @@ export class SignupComponent implements OnInit {
   deleteUserDetails = (i) => {
     this.registerUserList.splice(i, 1);
   }
-  checkboxStatus(data) {
+  checkboxStatus(data, Hobbies) {
+
+    console.log('-------------------------');
+    console.log(data);
+    console.log(Hobbies);
+    console.log('-------------------------');
     return data.Selected;
   }
 }

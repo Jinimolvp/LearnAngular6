@@ -58,8 +58,8 @@ export class SignupComponent implements OnInit {
   }
   // convenience getter for easy access to form fields
   // get f() { return this.registerForm.controls; }
-  selectHobby = (hobby, event, index) => {
-    if (event.target.checked === true) {
+  selectHobby = (hobby, selected, index) => {
+    if (selected === true) {
       this.selectedHobbyList.push(hobby);
       this.selectedHobbyList = _.uniq(this.selectedHobbyList);
     } else {
@@ -74,7 +74,7 @@ export class SignupComponent implements OnInit {
     // console.log( $( 'input[@id=' + hobby + ']:checked').length );
   }
   registerMe = (ngForm: any) => {
-    // console.log(ngForm);
+    console.log(ngForm);
     this.submitted = true;
     if (ngForm.invalid) {
       return;
@@ -107,18 +107,14 @@ export class SignupComponent implements OnInit {
   }
   editUserDetails = (i) => {
     this.Hobbies.map((value, index) => {
-      // console.log(this.selectedHobbyList[index]);
-      // console.log(this.selectedHobbyList, 'ffff', value.name, 'mmm', index);
-      this.edithobbyIndex = _.findIndex(this.registerUserList[i]['hobbies'], function (o) { return o === value.name; });
+      console.log(this.selectedHobbyList[index]);
+      console.log(this.selectedHobbyList, 'ffff', value.name, 'mmm', index);
+      this.edithobbyIndex = _.findIndex(this.selectedHobbyList, function (o) { return o === value.name; });
       if (this.edithobbyIndex < 0) {
         this.Hobbies[index].Selected = false;
       }
     });
-    console.log('*********************************');
-    console.log(this.registerUserList[i]['hobbies']);
-    console.log(this.registerUserList[i]);
     console.log(this.Hobbies);
-    console.log('*********************************');
     this.firstName = this.registerUserList[i]['firstname'];
     this.lastName = this.registerUserList[i]['lastname'];
     this.email = this.registerUserList[i]['email'];
@@ -154,6 +150,10 @@ export class SignupComponent implements OnInit {
     this.registerUserList.splice(i, 1);
   }
   checkboxStatus(data) {
-    return data.Selected;
+
+    console.log('-------------------------');
+    console.log(data);
+    console.log('-------------------------');
+    return this.checkbox;
   }
 }

@@ -44,13 +44,13 @@
             </div>
             <div class="form-group">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="phonenumber" pattern="^[0-9_-]{8,15}$" name="phonenumberVal" [(ngModel)]="phonenumber"
+                    <input type="text" class="form-control" placeholder="phonenumber" pattern="^[a-z0-9_-]{8,15}$" name="phonenumberVal" [(ngModel)]="phonenumber"
                         #phonenumberVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phonenumberVal.invalid }" required
                     />
                     <div *ngIf="f.submitted && phonenumberVal.invalid" class="invalid-feedback">
                         <div *ngIf="phonenumberVal.errors.required">Phone number is required</div>
                         <!-- <div *ngIf="phonenumberVal.errors.minlength">Min length needed</div> -->
-                        <div *ngIf="phonenumberVal.errors.pattern">Invalid phone number</div>
+                        <!-- <div *ngIf="phonenumberVal.errors.pattern">Invalid phone number</div> -->
                     </div>
                 </div>
             </div>
@@ -59,7 +59,8 @@
                     <label>Select your country</label>
                 </div>
                 <div class="col">
-                    <select class="countrySelectContainer" name="selectedNameVal" [(ngModel)]="selectedName" [ngModelOptions]="{standalone: true}">
+                    <select class="countrySelectContainer" name="selectedNameVal" [(ngModel)]="selectedName" [ngModelOptions]="{standalone: true}"
+                        #selectedNameVal="ngModel" required>
                         <option *ngFor="let x of  countries" [value]="x">{{x}}</option>
                     </select>
                 </div>
@@ -81,8 +82,8 @@
                 <div class="col">
                     <div class="">
                         <label class="form-check-label checkBoxDisplay" *ngFor="let Hobby of Hobbies">
-                            <input type="checkbox" class="form-check-input" name="hobby" id="Hobby.name" [checked]="checkboxStatus(Hobby)" (change)="selectHobby(Hobby.name,$event,index);"
-                                id="checkboxSuccess"> {{Hobby.name}}
+                            <input type="checkbox" class="form-check-input" name="hobby" id="Hobby.name" [checked]="Hobby.Selected" [(ngModel)]="Hobby.Selected"
+                                (change)="selectHobby(Hobby.name,Hobby.Selected,index);" id="checkboxSuccess" value="Hobby.Selected"> {{Hobby.name}}
                         </label>
                     </div>
 
@@ -129,7 +130,8 @@
                             <span *ngFor="let hobb of selectedHobbyList">{{hobb}},</span>
                         </td>
                         <td>
-                            <input type="submit" class="btn registerButton" [value]="editButton" (click)="editUserDetails(i);" />
+                            <input type="submit" class="btn registerButton" [value]="editButton" (click)="editUserDetails(i);"
+                            />
                         </td>
                         <td>
                             <input type="submit" class="btn registerButton" [value]="deleteButton" (click)="deleteUserDetails(i);">

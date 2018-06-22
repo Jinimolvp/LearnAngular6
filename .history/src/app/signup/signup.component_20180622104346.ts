@@ -58,8 +58,8 @@ export class SignupComponent implements OnInit {
   }
   // convenience getter for easy access to form fields
   // get f() { return this.registerForm.controls; }
-  selectHobby = (hobby, event, index) => {
-    if (event.target.checked === true) {
+  selectHobby = (hobby, selected, index) => {
+    if (selected === true) {
       this.selectedHobbyList.push(hobby);
       this.selectedHobbyList = _.uniq(this.selectedHobbyList);
     } else {
@@ -74,7 +74,7 @@ export class SignupComponent implements OnInit {
     // console.log( $( 'input[@id=' + hobby + ']:checked').length );
   }
   registerMe = (ngForm: any) => {
-    // console.log(ngForm);
+    console.log(ngForm);
     this.submitted = true;
     if (ngForm.invalid) {
       return;
@@ -115,8 +115,6 @@ export class SignupComponent implements OnInit {
       }
     });
     console.log('*********************************');
-    console.log(this.registerUserList[i]['hobbies']);
-    console.log(this.registerUserList[i]);
     console.log(this.Hobbies);
     console.log('*********************************');
     this.firstName = this.registerUserList[i]['firstname'];
@@ -153,7 +151,12 @@ export class SignupComponent implements OnInit {
   deleteUserDetails = (i) => {
     this.registerUserList.splice(i, 1);
   }
-  checkboxStatus(data) {
+  checkboxStatus(data, Hobbies) {
+
+    console.log('-------------------------');
+    console.log(data);
+    console.log(Hobbies);
+    console.log('-------------------------');
     return data.Selected;
   }
 }
