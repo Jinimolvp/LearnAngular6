@@ -38,6 +38,8 @@ export class SignupComponent implements OnInit {
   hobbyIndex: number;
   edithobbyIndex: number;
   checkbox = true;
+  copy: any;
+  updateCopy: any;
   constructor(private _data: DataService) { }
 
 
@@ -81,6 +83,8 @@ export class SignupComponent implements OnInit {
       return;
     }
     if (ngForm.valid) {
+      this.copy = Object.assign([], this.selectedHobbyList);
+      console.log(this.copy);
       this.registerUserList.push({
         'firstname': this.firstName,
         'lastname': this.lastName,
@@ -89,13 +93,13 @@ export class SignupComponent implements OnInit {
         'phonenumber': this.phonenumber,
         'country': this.selectedName,
         'address': this.address,
-        'hobbies': this.selectedHobbyList
+        'hobbies': this.copy
       });
-      this._data.registerUser(this.registerUserList).subscribe(results => {
-        console.log(results);
-        if (results) {
-        }
-      });
+      // this._data.registerUser(this.registerUserList).subscribe(results => {
+      //   console.log(results);
+      //   if (results) {
+      //   }
+      // });
       ngForm.resetForm();
       // ngForm.reset();
       // this.firstName = '';
@@ -115,7 +119,8 @@ export class SignupComponent implements OnInit {
     this.Hobbies.map((value, index) => {
       // console.log(this.selectedHobbyList[index]);
       // console.log(this.selectedHobbyList, 'ffff', value.name, 'mmm', index);
-      this.edithobbyIndex = _.findIndex(this.registerUserList[i]['hobbies'], function (o) { return o === value.name; });
+      this.edithobbyIndex = _.findIndex(this.registerUserList[i]['hobbies'], function (o) {
+        return o === value.name; });
       if (this.edithobbyIndex < 0) {
         this.Hobbies[index].Selected = false;
       }
@@ -137,6 +142,7 @@ export class SignupComponent implements OnInit {
     this.Hobbies = this.Hobbies;
   }
   updateUser = (regform) => {
+    this.updateCopy = Object.assign([], this.selectedHobbyList);
     this.registerUserList[this.editIndex]['firstname'] = this.firstName;
     this.registerUserList[this.editIndex]['lastName'] = this.lastName;
     this.registerUserList[this.editIndex]['email'] = this.email;
@@ -144,6 +150,7 @@ export class SignupComponent implements OnInit {
     this.registerUserList[this.editIndex]['phonenumber'] = this.phonenumber;
     this.registerUserList[this.editIndex]['country'] = this.selectedName;
     this.registerUserList[this.editIndex]['address'] = this.address;
+    this.registerUserList[this.editIndex]['hobbies'] = this.updateCopy;
 
      regform.resetForm();
     // To clear text fields
@@ -163,5 +170,4 @@ export class SignupComponent implements OnInit {
   checkboxStatus(data) {
     return data.Selected;
   }
-  
 }
