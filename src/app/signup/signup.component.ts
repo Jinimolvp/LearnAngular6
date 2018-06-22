@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import _ from 'lodash';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
+
 export class SignupComponent implements OnInit {
-  registerForm: FormGroup;
+    model: any = {};
+
+  //registerForm: FormGroup;
   submitted = false;
   registerText: string = 'Submit';
   editText: string = 'Update';
   editButton: string = 'Edit';
   deleteButton: string = 'Delete';
+  mobilePattern: string;
   countries = ['India', 'Pakisthan', 'Srilanka', 'UAE', 'Brazil', 'Canada', 'China'];
   Hobbies = [{'name': 'Cricket', 'Selected': true},
   {'name': 'Football', 'Selected': true},
@@ -33,28 +37,27 @@ export class SignupComponent implements OnInit {
   hobbyIndex: number;
   edithobbyIndex: number;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { }
 
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({
+  // this.gender = 'female';
+  //   this.registerForm = this.formBuilder.group({
 
-    });
-    this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-  });
+  //   });
+  //   this.registerForm = this.formBuilder.group({
+  //     firstName: ['', Validators.required],
+  //     lastName: ['', Validators.required],
+  //     email: ['', [Validators.required, Validators.email]],
+  //     password: ['', [Validators.required, Validators.minLength(6)]]
+  // });
     this.registerUserList = [];
     // this.edithobbyIndex = -1;
     this.selectedHobbyList = ['Cricket', 'Football', 'Gardening', 'Reading'];
 
   }
   // convenience getter for easy access to form fields
-      get f() { return this.registerForm.controls; }
+      // get f() { return this.registerForm.controls; }
   selectHobby = (hobby, selected, index) => {
-    console.log(hobby);
-    console.log(selected);
     if ( selected === true) {
       this.selectedHobbyList.push(hobby);
       this.selectedHobbyList = _.uniq(this.selectedHobbyList);
@@ -69,9 +72,13 @@ export class SignupComponent implements OnInit {
     console.log(this.selectedHobbyList);
    // console.log( $( 'input[@id=' + hobby + ']:checked').length );
   }
-  registerMe = () => {
+  registerMe = (ngForm: any) => {
+    console.log(ngForm);
       this.submitted = true;
-// if (this.registerForm.valid) {
+      if (ngForm.invalid) {
+         return ;
+      }
+if (ngForm.valid) {
     this.registerUserList.push({'firstname': this.firstName,
                                 'lastname': this.lastName,
                                 'email': this.email,
@@ -81,18 +88,19 @@ export class SignupComponent implements OnInit {
                                 'address': this.address,
                                 'hobbies': this.selectedHobbyList
                               });
-    this.firstName = '';
-    this.lastName = '';
-    this.email = '';
-    this.gender = 'female';
-    this.phonenumber = '';
-    this.address = '';
-    this.selectedName = 'India';
-    this.Hobbies = [{'name': 'Cricket', 'Selected': true},
-                    {'name': 'Football', 'Selected': true},
+     ngForm.resetForm();
+    // this.firstName = '';
+    // this.lastName = '';
+    // this.email = '';
+     // this.gender = 'female';
+    // this.phonenumber = '';
+    // this.address = '';
+     // this.selectedName = 'India';
+     this.Hobbies = [{'name': 'Cricket', 'Selected': true},
+                     {'name': 'Football', 'Selected': true},
                     {'name': 'Gardening', 'Selected': true},
                     {'name': 'Reading', 'Selected': true}];
-    // }
+    }
   }
   editUserDetails = (i) => {
     this.Hobbies.map( (value, index) => {
@@ -115,7 +123,7 @@ export class SignupComponent implements OnInit {
     this.editIndex = i;
     this.Hobbies = this.Hobbies;
   }
-  updateUser = () => {
+  updateUser = (regform) => {
     this.registerUserList[this.editIndex]['firstname'] = this.firstName ;
     this.registerUserList[this.editIndex]['lastName'] = this.lastName ;
     this.registerUserList[this.editIndex]['email'] = this.email ;
@@ -123,14 +131,16 @@ export class SignupComponent implements OnInit {
     this.registerUserList[this.editIndex]['phonenumber'] = this.phonenumber ;
     this.registerUserList[this.editIndex]['country'] = this.selectedName ;
     this.registerUserList[this.editIndex]['address'] = this.address ;
+
+    //regform.resetForm();
     // To clear text fields
-    this.firstName = '';
-    this.lastName = '';
-    this.email = '';
-    this.gender = 'female';
-    this.phonenumber = '';
+    // this.firstName = '';
+    // this.lastName = '';
+    // this.email = '';
+     this.gender = 'female';
+    // this.phonenumber = '';
     this.selectedName = 'India';
-    this.address = '';
+    // this.address = '';
 
   }
   deleteUserDetails = (i) => {
